@@ -31,7 +31,8 @@ public class ItemRepository {
     }
 
     public List<Item> findAll(){
-        //store를 바로 collcation으로 반환하여도되는데 ArrayList로 감싸서 반환하게 되면, ArrayList에 값을 넣어도 store에 영향을 주지않기 떄문에 감싸서 반환한다.
+        //store를 바로 collcation으로 반환하여도되는데 ArrayList로 감싸서 반환하게 되면,
+        // ArrayList에 값을 넣어도 store에 영향을 주지않기 떄문에 감싸서 반환한다.
         return new ArrayList<>(store.values());
     }
 
