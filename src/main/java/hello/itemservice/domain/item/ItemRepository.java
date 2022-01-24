@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class ItemRepository {
     /**
-     * 실무에서는 HashMap<> 사용 X  , Why? 동시에 여러 쓰레드가 접근할 떄(멀티쓰레드)가 store에 한번에 접근하게되면 안된다.
+     * 실무에서는 HashMap<> 사용 X  , Why? 동시에 여러 쓰레드(멀티쓰레드)가 접근할 떄가 store에 한번에 접근하게되면 안된다.
      * ItemRepository는  singleton 으로 생성되기 때문이다.
      * 해결 : ConcurrentHashMap<>, AtomicLong()을 사용하면된다.
      */
