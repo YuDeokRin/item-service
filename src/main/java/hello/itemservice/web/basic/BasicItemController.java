@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -99,12 +100,26 @@ public class BasicItemController {
      * 상품 등록 처리 이후에 뷰 템플릿이 아니라 상품 상세 화면으로 redirect하도록 코드를 작성해보자.
      * 이런 문제 해결 방식을 PRG - Post/Redirect/Get 라 한다.
      */
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addItemV5(Item item) {
         itemRepository.save(item);
         return "redirect:/basic/items/" + item.getId();
     }
 
+
+    /**
+     * RedirectAttributes
+     * RedirectAttributes를 사용하면 URL 인코딩을 해주고,
+     * pathVariable (PathVariable 바인딩 - {itemId}),
+     * 쿼리 파라미터까지 처리(?status=true) 해준다.
+     */
+    @PostMapping("/add")
+    public String addItemV6(Item item, RedirectAttributes redirectAttributes) {
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/basic/items/{itemId}";
+    }
 
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId , Model model){
@@ -118,6 +133,9 @@ public class BasicItemController {
         itemRepository.update(itemId, item);
         return "redirect:/basic/items/{itemId}";
     }
+
+
+
 
     /**
      *  테스트용 데이터 추가
