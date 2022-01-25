@@ -3,7 +3,6 @@ package hello.itemservice.web.basic;
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -90,10 +89,20 @@ public class BasicItemController {
      * @ModelAttribute 자체 생략 가능
      * model.addAttribute(item) 자동 추가
      */
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addItemV4(Item item) {
         itemRepository.save(item);
         return "basic/item";
+    }
+
+    /**
+     * 상품 등록 처리 이후에 뷰 템플릿이 아니라 상품 상세 화면으로 redirect하도록 코드를 작성해보자.
+     * 이런 문제 해결 방식을 PRG - Post/Redirect/Get 라 한다.
+     */
+    @PostMapping("/add")
+    public String addItemV5(Item item) {
+        itemRepository.save(item);
+        return "redirect:/basic/items/" + item.getId();
     }
 
 
