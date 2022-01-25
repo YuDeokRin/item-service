@@ -97,6 +97,18 @@ public class BasicItemController {
     }
 
 
+    @GetMapping("/{itemId}/edit")
+    public String editForm(@PathVariable Long itemId , Model model){
+        Item item = itemRepository.findById(itemId); // 상품을 먼저 찾는다.
+        model.addAttribute("item", item); // model에 넣어준다.
+        return "basic/editForm"; // view는 editForm으로
+    }
+
+    @PostMapping("/{itemId}/edit")
+    public String edit(@PathVariable Long itemId , @ModelAttribute Item item){
+        itemRepository.update(itemId, item);
+        return "redirect:/basic/items/{itemId}";
+    }
 
     /**
      *  테스트용 데이터 추가
