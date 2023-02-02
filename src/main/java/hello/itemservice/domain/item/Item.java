@@ -1,6 +1,6 @@
 package hello.itemservice.domain.item;
 
-
+       
 import lombok.Data;
 
 //@Getter @Setter // 실무에서는 따로 써주는 것이 좋음.
